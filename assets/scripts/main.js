@@ -28,9 +28,12 @@ async function conectarApi() {
     const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=5`
 
     let retorno = await fetch(completeUrl)
-    .then(response => {response.json()})
+    .then(response => {
+        return response.json()
+    })
     .then(data => {
         console.log(data)
+        return data
     })
     .catch(error => {
         console.log(error)
