@@ -7,9 +7,14 @@
 
     Abaixo irei fazer a autenticação da API, para configuração inicial
 
+    // Site Base -> https://spoonacular.com/food-api
+
+    // URL Antiga-> https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&number=5
+
+    // URL Nova -> https://api.spoonacular.com/recipes/716429/information?apiKey=${apiKey}&includeNutrition=true.
 */
 
-const apiKey = "be704345cdf14da4af50348a88eceb19"  // Chave Api
+const apiKey = "743c537ae764431c95dcfedb456c9054"  // Chave Api
 const baseUrl = "https://api.spoonacular.com/recipes/complexSearch" // URL Base
 const alimentosPesquisa = document.getElementById("pesquisar")
 
@@ -22,12 +27,10 @@ async function conectarApi() {
     // URL completa para conexão com a API
     const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=5`
 
-
     let retorno = await fetch(completeUrl)
     .then(response => {response.json()})
-    
     .then(data => {
-        console.log(data.results)
+        console.log(data)
     })
     .catch(error => {
         console.log(error)
