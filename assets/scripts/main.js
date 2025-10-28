@@ -32,7 +32,11 @@ async function conectarApi() {
         return response.json()
     })
     .then(data => {
-        console.log(data)
+        let comidaResul = data.results
+            console.log(comidaResul)
+            for(var i=0; i<10; i++){
+                console.log(comidaResul[i])
+            }
         return data
     })
     .catch(error => {
