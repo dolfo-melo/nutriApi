@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link do TailWind CSS (Front End) -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" type="module"></script>
+    <link rel="icon" href="">
     <title>Nutri Api</title>
 </head>
 <body>
@@ -16,9 +18,11 @@
             <div class="w-xs h-xl p-5 bg-green-700" id="container">
                 <label for="pesquisar">Fazer Larica</label>
                 <input type="text" id="pesquisar">
+                <button class="" type="submit" id="btnPesquisar" onclick="conectarApi()">Pesquisar</button>
             </div>
         </div>
     </main>
 </body>
+<!-- Link do Script principal (Back-End) -->
 <script src="assets/scripts/main.js" defer></script>
 </html>
