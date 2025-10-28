@@ -22,10 +22,11 @@ const alimentosPesquisa = document.getElementById("pesquisar")
 async function conectarApi() {
     
     // Obtem os valores digitados pelo usuário
-    const query = alimentosPesquisa.value 
+    const query = alimentosPesquisa.value
 
     // URL completa para conexão com a API
     const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=10`
+        // const recipeUrl = `${baseUrl}/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${query}&number=2`
 
     let retorno = await fetch(completeUrl)
     .then(response => {
@@ -33,10 +34,10 @@ async function conectarApi() {
     })
     .then(data => {
         let comidaResul = data.results
+            
             console.log(comidaResul)
             for(var i=0; i<10; i++){
-                console.log(comidaResul[i])
-            }
+                console.log(comidaResul[i])            }
         return data
     })
     .catch(error => {
