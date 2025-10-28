@@ -25,7 +25,7 @@ async function conectarApi() {
     const query = alimentosPesquisa.value 
 
     // URL completa para conexão com a API
-    const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=5`
+    const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=10`
 
     let retorno = await fetch(completeUrl)
     .then(response => {
