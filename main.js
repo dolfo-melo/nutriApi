@@ -16,9 +16,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
     const resultsContainer = document.getElementById("results-container");
     const resultsGrid = document.getElementById("results-grid");
+    const recipeDetailsContainer = document.getElementById("recipe-details-container");
+    const backBtn = document.getElementById("back-btn");
 
-    // Evento de clique ao botão "Buscar"
+    // Evento de clique do botão "Buscar"
     searchBtn.addEventListener("click", handleSearch);
+    // Evento de clique do botão "Sair" na tela de detalhes
+    backBtn.addEventListener("click", () => {
+        // Volta para a tela de resultados
+        recipeDetailsContainer.classList.add("hidden");
+        // Mostra os resultados novamente
+        resultsContainer.classList.remove("hidden");
+    });
+
+    // Evento de clique em uma receita
+    resultsGrid.addEventListener("click", (event) => {
+        // Verifica se o clique foi em um card de receita
+        const recipeCard = event.target.closest(".recipe-card");
+        // Se for, pega o ID da receita e mostra os detalhes
+        if (recipeCard) {
+            // Pega o ID da receita do dataset
+            const recipeId = recipeCard.dataset.id;
+            // Chama a função que mostra os detalhes da receita
+            showRecipeDetails(recipeId);
+        }
+    });
+
+    // Função async que exibe os detalhes da receita por ID
+    async function showRecipeDetails(recipeId) {
+        loader.style.display = 'flex'; // Mostra o loader
+        resultsContainer.classList.add('hidden'); // Esconde os resultados
+        mainContainer.classList.add('hidden'); // Esconde a tela de busca
+        recipeDetailsContainer.classList.add('hidden'); // Esconde detalhes antigos
+
+        try {
+            // Busca os detalhes da receita
+            const recipe = await fetchRecipeDetails(recipeId);
+
+            // Renderiza os detalhes da receita
+            renderRecipeDetails(recipe);
+
+            // Mostra a seção de detalhes
+            recipeDetailsContainer.classList.remove('hidden');
+
+        } catch (error) {
+            console.error("Erro ao buscar detalhes da receita:", error);
+        } finally {
+            // Esconde o loader
+            loader.style.display = 'none';
+        }
+    }
 
     // Função que gerencia o fluxo de busca e exibição
     async function handleSearch() {
