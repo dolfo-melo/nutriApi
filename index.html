@@ -1,61 +1,89 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    Link do TailWind CSS (Front End)
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" type="module"></script>
-    <link rel="icon" href="">
-    <title>Nutri Api</title>
-</head>
-<body>
-    <main class="w-dwv h-dvh">
-        <h1 class=" w-full h-xs text-center text-lg">NutriApi</h1>
-        <div class="w-full h-full flex justify-around align-center bg-green-300" id="mainContainer">
-            <div class="w-xs h-xl p-5 bg-red" id="mainLogo">
-                <img class="" src="" alt="logo">
-            </div>
-            <div class="w-xs h-xl p-5 bg-green-700" id="container">
-                <label for="pesquisar">Fazer Larica</label>
-                <input type="text" id="pesquisar">
-                <button class="" type="submit" id="btnPesquisar" onclick="conectarApi()">Pesquisar</button>
-            </div>
-        </div>
-    </main>
-</body>
-Link do Script principal (Back-End)
-<script src="assets/scripts/main.js" defer></script>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Receitas</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/src/icons/itensIcon.ICO">
+    <link rel="stylesheet" href="style.css">
+    <title>Foody - Gerador de Receitas</title>
 </head>
 </head>
 <body>
-    <main class="container">
-        <div class="search-container">
-            <p id="nome">Foody</p>
-            <h1>Não sabe o que cozinhar?</h1>
-            <p>Digite os ingredientes que você tem em casa (separados por vírgula) e descubra receitas incríveis.</p>
-            
-            <div class="input-group">
-                <input type="text" id="ingredient-input" placeholder="ex: frango, batata, alho">
-                <button id="search-btn">Buscar</button>
+    <main>
+        <section class="main-section">
+            <div class="search-container">
+                <p id="nome">Foody - Gerador de Receitas</p>
+                <h1>Não sabe o que cozinhar?</h1>
+                <p>Digite os ingredientes que você tem em casa (separados por vírgula) e descubra receitas incríveis.</p>
+                
+                <div class="input-group">
+                    <input type="text" id="ingredient-input" placeholder="ex: frango, batata, alho">
+                    <button id="search-btn" onclick="conectarApi()">Buscar</button>
+                </div>
             </div>
-        </div>
+    
+            <div class="image-container">
+                <img src="assets/src/prato.png" alt="Prato de comida saudável">
+            </div>
+        </section>
+        <section class="section-recipe">
+            <h1>Receitas</h1>
+            <div class="general-recipes">
+                
+                <div class="recipe-line">
+                    <div class="recipe">
+                        <img src="" alt="receitaUm">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaDois">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaTres">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaQuatro">
+                    </div>
+    
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaCinco">
+                    </div>
+                </div>
 
-        <div class="image-container">
-            <img src="assets/src/prato.png" alt="Prato de comida saudável">
-        </div>
+                <div class="recipe-line">
+                    <div class="recipe">
+                        <img src="" alt="receitaSeis">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaSete">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaOito">
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaNove">
+                    </div>
+    
+    
+                    <div class="recipe">
+                        <img src="" alt="receitaDez">
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
+    <footer>
+            <p>Desenvolvido por Albérico, Kaylane, Matheus, Rodolfo e Ryan 2025</p>
+    </footer>
 </body>
+<script src="assets/scripts/main.js" defer></script>
 </html>

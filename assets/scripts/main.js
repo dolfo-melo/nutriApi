@@ -16,7 +16,7 @@
 
 const apiKey = "743c537ae764431c95dcfedb456c9054"  // Chave Api
 const baseUrl = "https://api.spoonacular.com/recipes/complexSearch" // URL Base
-const alimentosPesquisa = document.getElementById("pesquisar")
+const alimentosPesquisa = document.getElementById("ingredient-input")
 
 // Função de conectar API
 async function conectarApi() {
