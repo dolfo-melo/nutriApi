@@ -14,34 +14,184 @@
     // URL Nova -> https://api.spoonacular.com/recipes/716429/information?apiKey=${apiKey}&includeNutrition=true.
 */
 
-const apiKey = "743c537ae764431c95dcfedb456c9054"  // Chave Api
-const baseUrl = "https://api.spoonacular.com/recipes/complexSearch" // URL Base
-const alimentosPesquisa = document.getElementById("ingredient-input")
+// Espera o documento HTML carregar completamente
+document.addEventListener("DOMContentLoaded", () => {
 
-// Função de conectar API
-async function conectarApi() {
+    // Seleção dos elementos do DOM
     
-    // Obtem os valores digitados pelo usuário
-    const query = alimentosPesquisa.value
+    // Sections Gerais
+    const sectionContainer = document.getElementById(".section-container")
+    const sectionRecipe = document.getElementById(".section-recipe")
+    
+    // Section Receitas
+    const result1 = document.getElementById("receita1");
+    const result2 = document.getElementById("receita2");
+    const result3 = document.getElementById("receita3");
+    const result4 = document.getElementById("receita4");
+    const result5 = document.getElementById("receita5");
+    const result6 = document.getElementById("receita6");
+    const result7 = document.getElementById("receita7");
+    const result8 = document.getElementById("receita8");
+    const result9 = document.getElementById("receita9");
+    const result10 = document.getElementById("receita10");
+    const resultsGrid = document.getElementById("recipes-grid");
+    const recipeDetailsContainer = document.getElementById("recipe-details-container");
+    const backBtn = document.getElementById("back-btn");
+  
+    
+    // Outros Elementos DOMs
+    const ingredientInput = document.getElementById("ingredient-input");
+    const searchBtn = document.getElementById("search-btn");
+    const mainContainer = document.querySelector("search-container");
+    const loader = document.getElementById("loader");
 
-    // URL completa para conexão com a API
-    const completeUrl = `${baseUrl}?apiKey=${apiKey}&query=${query}&number=10`
-        // const recipeUrl = `${baseUrl}/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${query}&number=2`
 
-    let retorno = await fetch(completeUrl)
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-        let comidaResul = data.results
+    // Evento de clique do botão "Buscar"
+    searchBtn.addEventListener("click", handleSearch);
+    // Evento de clique do botão "Sair" na tela de detalhes
+    backBtn.addEventListener("click", () => {
+        // Volta para a tela de resultados
+        recipeDetailsContainer.classList.add("hidden");
+        // Mostra os resultados novamente
+        resultsContainer.classList.remove("hidden");
+    });
+
+    // Evento de clique em uma receita
+    resultsGrid.addEventListener("click", (event) => {
+        // Verifica se o clique foi em um card de receita
+        const recipeCard = event.target.closest(".recipe-card");
+        // Se for, pega o ID da receita e mostra os detalhes
+        if (recipeCard) {
+            // Pega o ID da receita do dataset
+            const recipeId = recipeCard.dataset.id;
+            // Chama a função que mostra os detalhes da receita
+            showRecipeDetails(recipeId);
+        }
+    });
+
+    // Função async que exibe os detalhes da receita por ID
+    async function showRecipeDetails(recipeId) {
+        loader.style.display = 'flex'; // Mostra o loader
+        resultsGrid.classList.add('hidden'); // Esconde os resultados
+        mainContainer.classList.add('hidden'); // Esconde a tela de busca
+        recipeDetailsContainer.classList.add('hidden'); // Esconde detalhes antigos
+
+        try {
+            // Busca os detalhes da receita
+            const recipe = await fetchRecipeDetails(recipeId);
+
+            // Renderiza os detalhes da receita
+            renderRecipeDetails(recipe);
+
+            // Mostra a seção de detalhes
+            recipeDetailsContainer.classList.remove('hidden');
+
+        } catch (error) {
+            console.error("Erro ao buscar detalhes da receita:", error);
+        } finally {
+            // Esconde o loader
+            loader.style.display = 'none';
+        }
+    }
+
+    // Função que gerencia o fluxo de busca e exibição
+    async function handleSearch() {
+        // Pega os ingredientes digitados
+        const ingredients = ingredientInput.value;
+
+        // Verifica se o input está vazio
+        if (ingredients.trim() === "") {
+            alert("Por favor, digite os ingredientes.");
+            return;
+        }
+
+        // Prepara a interface para a busca
+        loader.style.display = 'flex'; // Mostra o loader
+        mainContainer.classList.add('hidden'); // Esconde a tela de busca
+        resultsContainer.style.display = 'none'; // Esconde resultados antigos
+
+        // A função  try é utilizada pra envolver um bloco de código que pode gerar erros        
+        try {
+            // 1. Busca as receitas na API
+            const recipes = await fetchRecipes(ingredients);
             
-            console.log(comidaResul)
-            for(var i=0; i<10; i++){
-                console.log(comidaResul[i])            }
-        return data
-    })
-    .catch(error => {
-        console.log(error)
-    })
+            // 2. Mostra as receitas na tela
+            renderRecipes(recipes);
+            
+            // 3. Mostra a seção de resultados
+            resultsContainer.style.display = 'block';
+ 
+        } 
+        
+        // A função catch é utilizada pra achar erros inesperados que possam ocorrer durante a execução do bloco try
+        // Ex: problemas de rede, erros na API, etc.
+        catch (error) {
+            // Mostra no console e avisa o usuário
+            console.error("Erro ao buscar receitas:", error);
+            resultsGrid.innerHTML = "<p>Erro ao buscar receitas. Tente novamente.</p>";
+            resultsContainer.style.display = 'block'; // Mostra a msg de erro
+        } 
+        
+        // A função finally é executada após o try e catch, independentemente do resultado
+        finally {
+            // Independentemente de sucesso ou erro, esconde o loader
+            loader.style.display = 'none';
+        }
+    }
 
-}
+    // Função que busca receitas na API 
+    async function fetchRecipes(ingredients) {
+
+        // A URL 'findByIngredients' foi usada pra buscar pelo que o usuário tem dentro das receitas disponíveis
+        // 'number=10' chama 10 resultados pra limitar a quantidade de chamadas (por causa da API limitadda)
+        const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=10`;
+
+        console.log("Buscando na URL:", url);
+
+        // Faz a requisição para a API
+        const response = await fetch(url);
+
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            // Se a API retornar um erro (ex: 401 Chave Inválida, 404, 500)
+            throw new Error(`Erro de API: ${response.statusText} (Status: ${response.status})`);
+        }
+
+        // Converte a resposta em JSON
+        const data = await response.json();
+        return data; // Retorna o array de receitas
+    }
+
+    // Função que mostra as receitas na tela
+    function renderRecipes(recipes) {
+        // Limpa os resultados anteriores
+        resultsGrid.innerHTML = '';
+
+        // Verifica se encontrou alguma receita, se não, avisa o usuário
+        if (recipes.length === 0) {
+            resultsGrid.innerHTML = '<p>Nenhuma receita encontrada com esses ingredientes.</p>';
+            return;
+        }
+
+        // Cria um card para cada receita
+        recipes.forEach(recipe => {
+            // Cria o elemento do card
+            const card = document.createElement('div');
+            // Adiciona a classe CSS
+            card.className = 'recipe-card';
+            
+            // Adicionam o ID da receita no 'dataset' (Precisamos disso pra função de exibir detalhes)
+            card.dataset.recipeId = recipe.id;
+
+            // Preenche o card com a imagem e título da receita
+            card.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <h3>${recipe.title}</h3>
+            `;
+            
+            // Adiciona o card ao grid de resultados
+            resultsGrid.appendChild(card);
+        });
+    }
+
+});
