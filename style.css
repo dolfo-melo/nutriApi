@@ -118,6 +118,8 @@ body {
 
 .recipes-grid{
     margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 20px;
 }
 
 .recipe-line{
@@ -126,7 +128,6 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 50px;
 }
 
 .recipe{
@@ -135,7 +136,15 @@ body {
     align-items: center;
 }
 
-.recipe img{
+.recipe-title{
+    font-size: 18px;
+}
+
+.recipe-resume{
+    font-size: 18px;
+}
+
+.recipe-image{
     width: 200px;
     height: 200px;
     border-radius: 100%;
