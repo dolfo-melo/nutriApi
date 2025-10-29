@@ -14,8 +14,7 @@
     // URL Nova -> https://api.spoonacular.com/recipes/716429/information?apiKey=${apiKey}&includeNutrition=true.
 */
 
-const apiKey = "743c537ae764431c95dcfedb456c9054"  // Chave Api
-const baseUrl = "https://api.spoonacular.com/recipes/complexSearch" // URL Base
+const baseUrl = "https://www.themealdb.com/api/json/v1/1/filter.php?i=ingrediente1,ingrediente2" // URL Base
 const alimentosPesquisa = document.getElementById("pesquisar")
 
 // Função de conectar API
