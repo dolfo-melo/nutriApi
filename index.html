@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Receitas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+</head>
+<body>
+
+    <main class="container">
+        <div class="search-container">
+            <p id="nome">Foody</p>
+            <h1>Não sabe o que cozinhar?</h1>
+            <p>Digite os ingredientes que você tem em casa (separados por vírgula) e descubra receitas incríveis.</p>
+            
+            <div class="input-group">
+                <input type="text" id="ingredient-input" placeholder="ex: frango, batata, alho">
+                <button id="search-btn">Buscar</button>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <img src="./assets/prato.png" alt="Prato de comida saudável">
+        </div>
+    </main>
+
+    <section class="results-container" id="results-container" style="display: none;">
+        <h2>Resultados da Busca</h2>
+        
+        <div class_ ="results-grid" id="results-grid">
+            </div>
+    </section>
+
+    <div class="loader-container" id="loader" style="display: none;">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
