@@ -1,48 +1,11 @@
-// (Kaylane) - Adicionei as funções pro modal e o sistema de tradução pra teste
+// (Kaylane) - Adicionei as funções pro modal e removi o sistema de tradução (A tradução era instável e deixava a aplicação lenta)
 // Receber os ingredientes do usuário
 // Buscar as receitas na API
 // Exibir as receitas na tela
 // Exibir detalhes da receita em um modal
-// Traduzir os textos (API MyMemory)
 
 // Chave API
 const API_KEY = "743c537ae764431c95dcfedb456c9054";
-
-// Função para traduzir os textos
-async function traduzirTexto(texto, langPair) {
-    // Se o texto for vazio (ex: não tem receitas), não gasta uma chamada de API
-    if (!texto) {
-        return "";
-    }
-
-    try {
-        // "encodeURIComponent" é usado para garantir que caracteres especiais no texto não quebrem a URL (ex: "frango & alho" -> "frango%20%26%20alho")
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=${langPair}`;
-
-        // Faz a requisição para a API de tradução
-        const response = await fetch(url);
-        // Verifica se a resposta foi bem-sucedida
-        if (!response.ok) {
-            throw new Error(`Erro na API de Tradução: ${response.statusText}`);
-        }
-
-        // Converte a resposta em JSON
-        const data = await response.json();
-
-        // Verifica se a API de tradução deu algum erro interno
-        if (data.responseStatus !== 200) {
-            throw new Error(`Erro Mymemory: ${data.responseDetails}`);
-        }
-
-        // Retorna o texto traduzido
-        return data.responseData.translatedText;
-
-        // Em caso de erro, retorna o texto original
-    } catch (error) {
-        console.error(`Falha ao traduzir "${texto}":`, error);
-        return texto;
-    }
-}
 
 // Espera o documento HTML carregar completamente
 document.addEventListener("DOMContentLoaded", () => {
@@ -93,15 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // A função  try é utilizada pra envolver um bloco de código que pode gerar erros        
         try {
-            // 1. Traduz os ingredientes para inglês
-            console.log(`Traduzindo: "${ingredientesInput}"`);
-            const ingredientesTraduzidos = await traduzirTexto(ingredientesInput, "pt|en");
-            console.log(`Traduzido para: "${ingredientesTraduzidos}"`);
+    
+            // 1. Busca as receitas na API
+            const recipes = await fetchRecipes(ingredientesInput);
 
-            // 2. Busca as receitas na API
-            const recipes = await fetchRecipes(ingredientesTraduzidos);
-
-            // Verifica se encontrou alguma receita
+            // 2. Verifica se encontrou alguma receita
             if (recipes.length === 0) {
                 // Se a API não retornar nada
                 resultsGrid.innerHTML = '<p>Nenhuma receita encontrada com esses ingredientes.</p>';
@@ -109,29 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 3. Traduz os títulos das receitas para português
-            console.log("Traduzindo títulos das receitas...");
-            loader.querySelector('p').textContent = 'Traduzindo resultados...';
-
-            // "lista de promessas" de tradução
-            const promessasDeTraducao = recipes.map(recipe => {
-                // Cada chamada de tradução retorna uma promessa
-                return traduzirTexto(recipe.title, "en|pt");
-            });
-
-            // "Promise.all()" espera TODAS as traduções terminarem de uma vez
-            const titulosTraduzidos = await Promise.all(promessasDeTraducao);
-
-            // Atualiza os títulos do array de receitas
-            const recipesTraduzidas = recipes.map((recipe, index) => {
-                // Substitui o título em inglês pelo em PT
-                recipe.title = titulosTraduzidos[index];
-                // Retorna a receita atualizada
-                return recipe;
-            });
-
-            // 4. Mostra as receitas na tela
-            renderRecipes(recipesTraduzidas);
+            // 3. Mostra as receitas na tela
+            renderRecipes(recipes);
 
             // 5. Mostra a seção de resultados
             resultsContainer.style.display = 'block';
@@ -228,40 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // Busca os detalhes específicos da receita
             const details = await fetchRecipeDetails(recipeId);
 
-            // Traduz o título e as instruções da receita
-            const promessaTitulo = traduzirTexto(details.title, "en|pt");
-
-            // Espera a tradução das instruções
-            const promessaInstrucoes = traduzirTexto(details.instructions, "en|pt");
-
-            // Espera todas as traduções terminarem
-            const promessasIngredientes = details.extendedIngredients.map(ing => {
-                // Traduz todos os ingrediente
-                return traduzirTexto(ing.original, "en|pt");
-            });
-
-            // Atualiza os ingredientes com as traduções
-            const [tituloTraduzido, instrucoesTraduzidas] = await Promise.all([
-                promessaTitulo,
-                promessaInstrucoes
-            ]);
-
-            // Atualiza o objeto "details" com os textos traduzidos
-            const ingredientesTraduzidos = await Promise.all(promessasIngredientes);
-
-            // Cria um novo objeto com os textos traduzidos
-            const detailsTraduzido = {
-                ...details, // Copia todos os dados originais
-                title: tituloTraduzido, // Reescreve o título
-                instructions: instrucoesTraduzidas, // Reescreve as instruções
-                extendedIngredients: details.extendedIngredients.map((ing, index) => ({
-                    ...ing, // Copia todos os ingredientes
-                    original: ingredientesTraduzidos[index] // Reescreve o texto
-                }))
-            };
-
             // Mostra os detalhes completos dentro do modal
-            renderRecipeDetails(detailsTraduzido);
+            renderRecipeDetails(details);
 
         } catch (error) {
             console.error("Erro ao buscar detalhes da receita:", error);
