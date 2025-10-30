@@ -2,7 +2,7 @@
 const data = 50
 const state = {
     page: 1,
-    totalPage: Math.ceil(data.length/5)
+    totalPage: Math.ceil(data/5)
 }
 
 const controls = {
@@ -21,11 +21,13 @@ const controls = {
         }
     },
     executa() {
-        document.getElementById("next").addEventListener('click', () => {
+        document.querySelector('.next').addEventListener('click', () => {
             controls.next()
+            console.log(state.page)
         })
-        document.getElementById("prev").addEventListener('click', () => {
+        document.querySelector('.prev').addEventListener('click', () => {
             controls.prev()
+            onsole.log(state.page)
         })
     }
 }
