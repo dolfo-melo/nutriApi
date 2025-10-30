@@ -50,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Seleção dos elementos do DOM
     const ingredientInput = document.getElementById("ingredient-input");
     const searchBtn = document.getElementById("search-btn");
-    const mainContainer = document.querySelector("main.container");
+    const mainContainer = document.querySelector(".main-section.search-container");
     const loader = document.getElementById("loader");
-    const resultsContainer = document.getElementById("results-container");
-    const resultsGrid = document.getElementById("results-grid");
+    const resultsContainer = document.querySelector(".section-recipe");
+    const resultsGrid = document.getElementById("recipes-grid");
     const modalOverlay = document.getElementById("modal-overlay");
     const modalCloseBtn = document.getElementById("modal-close-btn");
     const modalDetailsContent = document.getElementById("modal-details-content");
@@ -77,10 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função que gerencia o fluxo de busca e exibição
     async function handleSearch() {
         // Pega os ingredientes digitados
-        const ingredients = ingredientInput.value;
+        const ingredientesInput = ingredientInput.value;
 
         // Verifica se o input está vazio
-        if (ingredients.trim() === "") {
+        if (ingredientesInput.trim() === "") {
             alert("Por favor, digite os ingredientes.");
             return;
         }
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // 4. Mostra as receitas na tela
-            renderRecipes(recipes);
+            renderRecipes(recipesTraduzidas);
 
             // 5. Mostra a seção de resultados
             resultsContainer.style.display = 'block';
