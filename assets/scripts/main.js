@@ -1,197 +1,191 @@
 /* Arquivo Principal do Script - Deveremos ter módulos e separar as responsabilidades
 
-    .assets -> .script -> vocês irão ver que teram mais de um arquivo *JS*
+   .assets -> .script -> vocês irão ver que teram mais de um arquivo *JS*
 
-    Esses arquivos serão os nossos módulos, onde cada um faz uma parte diferente do código e no fim, 
-    juntaremos a esse Script principal através de exportação e importação
-
-    Abaixo irei fazer a autenticação da API, para configuração inicial
-
-    // Site Base -> https://spoonacular.com/food-api
-
-    // URL Antiga-> https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&number=5
-
-    // URL Nova -> https://api.spoonacular.com/recipes/716429/information?apiKey=${apiKey}&includeNutrition=true.
+   Esses arquivos serão os nossos módulos, onde cada um faz uma parte diferente do código e no fim, 
+   juntaremos a esse Script principal através de exportação e importação
+   
 */
+
+/* ===========================================
+    1. CHAVES E CONSTANTES GLOBAIS (Adição)
+=========================================== */
+
+// **ATENÇÃO:** SUBSTITUA PELA SUA CHAVE REAL DA SPOONACULAR
+const API_KEY = "SUA_CHAVE_AQUI"; 
+// URL Base para buscar receitas por ingredientes
+const RECIPES_BASE_URL = "https://api.spoonacular.com/recipes/findByIngredients";
+// URL Base para buscar detalhes de uma receita
+const DETAILS_BASE_URL = "https://api.spoonacular.com/recipes";
 
 // Espera o documento HTML carregar completamente
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Seleção dos elementos do DOM
+    /* ===========================================================================
+        2. SELEÇÃO DOS ELEMENTOS DO DOM (Correção dos seletores e novos elementos)
+    ============================================================================ */
     
-    // Sections Gerais
-    const sectionContainer = document.getElementById(".section-container")
-    const sectionRecipe = document.getElementById(".section-recipe")
+    // Elementos da Busca e Container Principal
+    const mainContainer = document.querySelector(".search-container"); 
+    const ingredientInput = document.getElementById("ingredient-input"); // Input de texto
+    const searchBtn = document.getElementById("search-btn");             // Botão de busca
+    const loader = document.getElementById("loader"); // Este ID não existe no HTML, mas foi mantido
     
-    // Section Receitas
-    const result1 = document.getElementById("receita1");
-    const result2 = document.getElementById("receita2");
-    const result3 = document.getElementById("receita3");
-    const result4 = document.getElementById("receita4");
-    const result5 = document.getElementById("receita5");
-    const result6 = document.getElementById("receita6");
-    const result7 = document.getElementById("receita7");
-    const result8 = document.getElementById("receita8");
-    const result9 = document.getElementById("receita9");
-    const result10 = document.getElementById("receita10");
-    const resultsGrid = document.getElementById("recipes-grid");
+    // Elementos de Exibição de Resultados (Baseado no seu HTML)
+    const resultsContainer = document.querySelector(".section-recipe"); // Section Recipes
+    
+    // Mapeando o div que contém os resultados (a linha de receitas)
+    const resultsGrid = document.querySelector(".general-recipes"); 
+    
+    // Elementos de Detalhes (Estes IDs não existem no HTML, mas são necessários para o seu fluxo)
     const recipeDetailsContainer = document.getElementById("recipe-details-container");
     const backBtn = document.getElementById("back-btn");
-  
-    
-    // Outros Elementos DOMs
-    const ingredientInput = document.getElementById("ingredient-input");
-    const searchBtn = document.getElementById("search-btn");
-    const mainContainer = document.querySelector("search-container");
-    const loader = document.getElementById("loader");
 
+    /* ======================
+        3 .EVENT LISTENERS
+    ====================== */
 
     // Evento de clique do botão "Buscar"
-    searchBtn.addEventListener("click", handleSearch);
+    // REMOVIDO o onclick do HTML, agora a conexão é feita via JS
+    searchBtn.addEventListener("click", handleSearch); 
+
     // Evento de clique do botão "Sair" na tela de detalhes
-    backBtn.addEventListener("click", () => {
-        // Volta para a tela de resultados
-        recipeDetailsContainer.classList.add("hidden");
-        // Mostra os resultados novamente
-        resultsContainer.classList.remove("hidden");
-    });
-
-    // Evento de clique em uma receita
-    resultsGrid.addEventListener("click", (event) => {
-        // Verifica se o clique foi em um card de receita
-        const recipeCard = event.target.closest(".recipe-card");
-        // Se for, pega o ID da receita e mostra os detalhes
-        if (recipeCard) {
-            // Pega o ID da receita do dataset
-            const recipeId = recipeCard.dataset.id;
-            // Chama a função que mostra os detalhes da receita
-            showRecipeDetails(recipeId);
-        }
-    });
-
-    // Função async que exibe os detalhes da receita por ID
-    async function showRecipeDetails(recipeId) {
-        loader.style.display = 'flex'; // Mostra o loader
-        resultsGrid.classList.add('hidden'); // Esconde os resultados
-        mainContainer.classList.add('hidden'); // Esconde a tela de busca
-        recipeDetailsContainer.classList.add('hidden'); // Esconde detalhes antigos
-
-        try {
-            // Busca os detalhes da receita
-            const recipe = await fetchRecipeDetails(recipeId);
-
-            // Renderiza os detalhes da receita
-            renderRecipeDetails(recipe);
-
-            // Mostra a seção de detalhes
-            recipeDetailsContainer.classList.remove('hidden');
-
-        } catch (error) {
-            console.error("Erro ao buscar detalhes da receita:", error);
-        } finally {
-            // Esconde o loader
-            loader.style.display = 'none';
-        }
+    if (backBtn && recipeDetailsContainer) {
+        backBtn.addEventListener("click", () => {
+            // Volta para a tela de busca e esconde os detalhes
+            recipeDetailsContainer.classList.add("hidden");
+            mainContainer.classList.remove("hidden"); 
+            // Mostra os resultados novamente
+            resultsContainer.classList.remove("hidden");
+        });
     }
 
+    // Evento de clique em uma receita
+    if (resultsGrid) {
+        resultsGrid.addEventListener("click", (event) => {
+            // Verifica se o clique foi em um card de receita
+            const recipeCard = event.target.closest(".recipe-card");
+            // Se for, pega o ID da receita e mostra os detalhes
+            if (recipeCard) {
+                // CORREÇÃO: Acessa o dataset.recipeId
+                const recipeId = recipeCard.dataset.recipeId;
+                // Chama a função que mostra os detalhes da receita
+                showRecipeDetails(recipeId);
+            }
+        });
+    }
+    
+    /* ========================================================
+        4 - FUNÇÕES ASSÍNCRONAS DE API (Conexão e Detalhes)
+    ======================================================== */
+
+    // Função que busca receitas na API 
+    async function fetchRecipes(ingredients) {
+        
+        // A URL 'findByIngredients' foi usada pra buscar pelo que o usuário tem dentro das receitas disponíveis
+        const url = `${RECIPES_BASE_URL}?apiKey=${API_KEY}&ingredients=${ingredients}&number=5`; // Número limitado a 5
+        console.log("Buscando na URL:", url);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Erro de API: ${response.statusText} (Status: ${response.status})`);
+        }
+        
+        const data = await response.json();
+        return data; // Retorna o array de receitas
+    }
+    
+    // Função async que busca os detalhes da receita por ID (3. Adição)
+    async function fetchRecipeDetails(recipeId) {
+        const url = `${DETAILS_BASE_URL}/${recipeId}/information?apiKey=${API_KEY}&includeNutrition=true`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`Erro de API: ${response.statusText} (Status: ${response.status})`);
+        }
+        
+        const data = await response.json();
+        return data;
+    }
+    
     // Função que gerencia o fluxo de busca e exibição
     async function handleSearch() {
-        // Pega os ingredientes digitados
         const ingredients = ingredientInput.value;
 
-        // Verifica se o input está vazio
         if (ingredients.trim() === "") {
             alert("Por favor, digite os ingredientes.");
             return;
         }
 
-        // Prepara a interface para a busca
-        loader.style.display = 'flex'; // Mostra o loader
-        mainContainer.classList.add('hidden'); // Esconde a tela de busca
-        resultsContainer.style.display = 'none'; // Esconde resultados antigos
+        // Prepara a interface para a busca (4. Correção: Acesso de classes/style)
+        // Se loader existe, mostra ele
+        if (loader) loader.style.display = 'flex'; 
+        // Esconde a área de busca (search-container)
+        if (mainContainer) mainContainer.classList.add('hidden'); 
+        // Esconde a section de resultados
+        if (resultsContainer) resultsContainer.style.display = 'none'; 
 
-        // A função  try é utilizada pra envolver um bloco de código que pode gerar erros        
         try {
-            // 1. Busca as receitas na API
             const recipes = await fetchRecipes(ingredients);
-            
-            // 2. Mostra as receitas na tela
             renderRecipes(recipes);
             
-            // 3. Mostra a seção de resultados
-            resultsContainer.style.display = 'block';
+            // Mostra a seção de resultados
+            if (resultsContainer) resultsContainer.style.display = 'block';
  
         } 
-        
-        // A função catch é utilizada pra achar erros inesperados que possam ocorrer durante a execução do bloco try
-        // Ex: problemas de rede, erros na API, etc.
         catch (error) {
-            // Mostra no console e avisa o usuário
             console.error("Erro ao buscar receitas:", error);
-            resultsGrid.innerHTML = "<p>Erro ao buscar receitas. Tente novamente.</p>";
-            resultsContainer.style.display = 'block'; // Mostra a msg de erro
+            if (resultsGrid) resultsGrid.innerHTML = "<p>Erro ao buscar receitas. Tente novamente.</p>";
+            if (resultsContainer) resultsContainer.style.display = 'block'; 
         } 
-        
-        // A função finally é executada após o try e catch, independentemente do resultado
         finally {
-            // Independentemente de sucesso ou erro, esconde o loader
-            loader.style.display = 'none';
+            if (loader) loader.style.display = 'none';
         }
     }
 
-    // Função que busca receitas na API 
-    async function fetchRecipes(ingredients) {
-
-        // A URL 'findByIngredients' foi usada pra buscar pelo que o usuário tem dentro das receitas disponíveis
-        // 'number=10' chama 10 resultados pra limitar a quantidade de chamadas (por causa da API limitadda)
-        const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=10`;
-
-        console.log("Buscando na URL:", url);
-
-        // Faz a requisição para a API
-        const response = await fetch(url);
-
-        // Verifica se a resposta foi bem-sucedida
-        if (!response.ok) {
-            // Se a API retornar um erro (ex: 401 Chave Inválida, 404, 500)
-            throw new Error(`Erro de API: ${response.statusText} (Status: ${response.status})`);
-        }
-
-        // Converte a resposta em JSON
-        const data = await response.json();
-        return data; // Retorna o array de receitas
-    }
+    /* ==============================
+        5 -FUNÇÕES DE RENDERIZAÇÃO
+    ============================== */
 
     // Função que mostra as receitas na tela
     function renderRecipes(recipes) {
-        // Limpa os resultados anteriores
+        if (!resultsGrid) return; // Garante que o elemento existe
         resultsGrid.innerHTML = '';
 
-        // Verifica se encontrou alguma receita, se não, avisa o usuário
         if (recipes.length === 0) {
             resultsGrid.innerHTML = '<p>Nenhuma receita encontrada com esses ingredientes.</p>';
             return;
         }
 
-        // Cria um card para cada receita
         recipes.forEach(recipe => {
-            // Cria o elemento do card
             const card = document.createElement('div');
-            // Adiciona a classe CSS
-            card.className = 'recipe-card';
-            
-            // Adicionam o ID da receita no 'dataset' (Precisamos disso pra função de exibir detalhes)
+            // CORREÇÃO: Usando a classe 'recipe-line' ou 'recipe' do seu HTML
+            card.className = 'recipe-line'; 
             card.dataset.recipeId = recipe.id;
 
-            // Preenche o card com a imagem e título da receita
             card.innerHTML = `
-                <img src="${recipe.image}" alt="${recipe.title}">
-                <h3>${recipe.title}</h3>
+                 <div class="recipe" data-recipe-id="${recipe.id}">
+                    <img src="${recipe.image}" alt="${recipe.title}">
+                    <h3>${recipe.title}</h3>
+                 </div>
             `;
             
-            // Adiciona o card ao grid de resultados
             resultsGrid.appendChild(card);
         });
     }
 
+    // Função de Renderização de Detalhes (Vazia para ser implementada)
+    function renderRecipeDetails(recipe) {
+         // Lógica para preencher recipeDetailsContainer com os dados da receita (título, ingredientes, passos, etc.)
+         console.log("Renderizando detalhes para:", recipe.title);
+         if (recipeDetailsContainer) {
+             recipeDetailsContainer.style = "display: flex;" 
+             recipeDetailsContainer.innerHTML = `
+                 <h2>${recipe.title}</h2>
+                 <p>Pronto em: ${recipe.readyInMinutes} minutos</p>
+                 `;
+         }
+    }
 });

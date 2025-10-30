@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="style.css">
     <title>Foody - Gerador de Receitas</title>
 </head>
-</head>
 <body>
     <main>
-        <section class="main-section">
-            
-            <!-- Menu Principal -->
+        <section class="main-section search-container">
             <div class="search-container">
-                <p id="nome">Foody Finds - Gerador de Receitas</p>
+                <p id="nome">Foody - Gerador de Receitas</p>
                 <h1>Não sabe o que cozinhar?</h1>
                 <p>Digite os ingredientes que você tem em casa (separados por vírgula) e descubra receitas incríveis.</p>
                 
@@ -26,73 +23,31 @@
                     <button id="search-btn">Buscar</button>
                 </div>
             </div>
-    
-            <div class="image-container">
-                <img src="assets/src/Logo.png" alt="main-logo">
-            </div>
-        </section>
-
-        <!-- Secção de Receitas -->
-        
-        <section class="section-recipe" id="section-recipe">
             
-            <h1>Receitas</h1>
-            <!-- Grid de Receitas -->
-            <div class="recipes-grid">
-                
-                <!-- Modal Receitas -->
-                <div class="recipe-details-container">
-                    <div class="container">
-                        <img class="step-image" src="" alt="">
-                        <h2 class="step-title"></h2>
-                        <p class="step-recipe"></p>
-                        <img class="back-btn" src="" id="back-btn">
-                    </div>
-                </div>
-                
-                <!-- Linha Receitas 1 -->
-                <div class="recipe-line" id="recipe-line" id="lineOne">
-
-                    <!-- Receita Individual -->
-                    <div class="recipe" id="receita1">
-                        <img src="" alt="" id="receita-image">
-                        <h2 class="recipe-title"></h2>
-                        <p class="recipe-resume"></p>
-                    </div>
-    
-                    <div class="recipe" id="receita2">
-                        <img src="" alt="" id="receita-image">
-                        <h2 class="recipe-title"></h2>
-                        <p class="recipe-resume">.</p>
-                    </div>
-    
-                    <div class="recipe" id="receita3">
-                        <img src="" alt="" id="receita-image">
-                        <h2 class="recipe-title"></h2>
-                        <p class="recipe-resume">.</p>
-
-                    </div>
-    
-                    <div class="recipe" id="receita4">
-                        <img src="" alt="" id="receita-um-image">
-                        <h2 class="recipe-title"></h2>
-                        <p class="recipe-resume">.</p>
-
-                    </div>
-    
-    
-                    <div class="recipe" id="receita5">
-                        <img src="" alt="" id="receita-um-image">
-                        <h2 class="recipe-title"></h2>
-                        <p class="recipe-resume">.</p>
-                    </div>
-                </div>
-
+            <div class="image-container">
+                <img src="assets/src/prato.png" alt="Prato de comida saudável">
             </div>
         </section>
+
+        <div id="loader" class="loader">
+            <p>Carregando...</p> 
+        </div>
+
+        <section class="section-recipe">
+            <h1>Receitas</h1>
+            <div class="general-recipes" id="recipes-grid"> 
+                </div>
+        </section>
+
+        <section id="recipe-details-container" class="recipe-details">
+            <button id="back-btn">Voltar para Resultados</button>
+            <h2>Detalhes da Receita</h2>
+            </section>
+
     </main>
     <footer>
-            <p>Desenvolvido por Albérico, Kaylane, Matheus, Rodolfo e Ryan 2025</p>
+        <p>Desenvolvido por <strong>Albérico, Kaylane, Matheus, Rodolfo e Ryan </strong></p>
+        <p>Todos os direitos reservados © 2025</p>
     </footer>
 </body>
 <script src="assets/scripts/main.js" defer></script>
