@@ -1,18 +1,9 @@
-/* Arquivo Principal do Script - Deveremos ter módulos e separar as responsabilidades
-
-   .assets -> .script -> vocês irão ver que teram mais de um arquivo *JS*
-
-   Esses arquivos serão os nossos módulos, onde cada um faz uma parte diferente do código e no fim, 
-   juntaremos a esse Script principal através de exportação e importação
-   
-*/
-
 /* ===========================================
     1. CHAVES E CONSTANTES GLOBAIS (Adição)
 =========================================== */
 
 // **ATENÇÃO:** SUBSTITUA PELA SUA CHAVE REAL DA SPOONACULAR
-const API_KEY = "SUA_CHAVE_AQUI"; 
+const API_KEY = "743c537ae764431c95dcfedb456c9054"; 
 // URL Base para buscar receitas por ingredientes
 const RECIPES_BASE_URL = "https://api.spoonacular.com/recipes/findByIngredients";
 // URL Base para buscar detalhes de uma receita
