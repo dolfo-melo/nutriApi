@@ -2,33 +2,35 @@
     1. CHAVES E CONSTANTES GLOBAIS (Adição)
 =========================================== */
 
-// **ATENÇÃO:** SUBSTITUA PELA SUA CHAVE REAL DA SPOONACULAR
-const API_KEY = "743c537ae764431c95dcfedb456c9054"; 
+// Chave API
+const API_KEY = "743c537ae764431c95dcfedb456c9054"
+
 // URL Base para buscar receitas por ingredientes
-const RECIPES_BASE_URL = "https://api.spoonacular.com/recipes/findByIngredients";
+const RECIPES_BASE_URL = "https://api.spoonacular.com/recipes/findByIngredients"
+
 // URL Base para buscar detalhes de uma receita
-const DETAILS_BASE_URL = "https://api.spoonacular.com/recipes";
+const DETAILS_BASE_URL = "https://api.spoonacular.com/recipes"
 
 // Espera o documento HTML carregar completamente
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ===========================================================================
-        2. SELEÇÃO DOS ELEMENTOS DO DOM (Correção dos seletores e novos elementos)
-    ============================================================================ */
+    /* ===================================
+        2. SELEÇÃO DOS ELEMENTOS DO DOM
+    =================================== */
     
     // Elementos da Busca e Container Principal
-    const mainContainer = document.querySelector(".search-container"); 
-    const ingredientInput = document.getElementById("ingredient-input"); // Input de texto
-    const searchBtn = document.getElementById("search-btn");             // Botão de busca
-    const loader = document.getElementById("loader"); // Este ID não existe no HTML, mas foi mantido
+    const mainContainer = document.querySelector(".search-container")
+    const ingredientInput = document.getElementById("ingredient-input") // Input de texto
+    const searchBtn = document.getElementById("search-btn")            // Botão de busca
+    const loader = document.getElementById("loader")
     
-    // Elementos de Exibição de Resultados (Baseado no seu HTML)
-    const resultsContainer = document.querySelector(".section-recipe"); // Section Recipes
+    // Elementos de Exibição de Resultados
+    const resultsContainer = document.querySelector(".section-recipe");
     
-    // Mapeando o div que contém os resultados (a linha de receitas)
+    // Mapeando o div que contém os resultados
     const resultsGrid = document.querySelector(".general-recipes"); 
     
-    // Elementos de Detalhes (Estes IDs não existem no HTML, mas são necessários para o seu fluxo)
+    // Elementos de Detalhes
     const recipeDetailsContainer = document.getElementById("recipe-details-container");
     const backBtn = document.getElementById("back-btn");
 
@@ -37,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ====================== */
 
     // Evento de clique do botão "Buscar"
-    // REMOVIDO o onclick do HTML, agora a conexão é feita via JS
     searchBtn.addEventListener("click", handleSearch); 
 
     // Evento de clique do botão "Sair" na tela de detalhes
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const recipeCard = event.target.closest(".recipe-card");
             // Se for, pega o ID da receita e mostra os detalhes
             if (recipeCard) {
-                // CORREÇÃO: Acessa o dataset.recipeId
                 const recipeId = recipeCard.dataset.recipeId;
                 // Chama a função que mostra os detalhes da receita
                 showRecipeDetails(recipeId);
@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Prepara a interface para a busca (4. Correção: Acesso de classes/style)
-        // Se loader existe, mostra ele
         if (loader) loader.style.display = 'flex'; 
         // Esconde a área de busca (search-container)
         if (mainContainer) mainContainer.classList.add('hidden'); 
@@ -152,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         recipes.forEach(recipe => {
             const card = document.createElement('div');
-            // CORREÇÃO: Usando a classe 'recipe-line' ou 'recipe' do seu HTML
             card.className = 'recipe-line'; 
             card.dataset.recipeId = recipe.id;
 
@@ -167,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Função de Renderização de Detalhes (Vazia para ser implementada)
+    // Função de Renderização de Detalhes
     function renderRecipeDetails(recipe) {
          // Lógica para preencher recipeDetailsContainer com os dados da receita (título, ingredientes, passos, etc.)
          console.log("Renderizando detalhes para:", recipe.title);
