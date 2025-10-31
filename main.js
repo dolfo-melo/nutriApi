@@ -5,7 +5,7 @@
 // Exibir detalhes da receita em um modal
 
 // Chave API
-const API_KEY = "743c537ae764431c95dcfedb456c9054";
+const API_KEY = "e30e10cd756f41b0b7f745fc090e1bee";
 
 // Espera o documento HTML carregar completamente
 document.addEventListener("DOMContentLoaded", () => {
@@ -49,8 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Prepara a interface para a busca
-        loader.querySelector('p').textContent = 'Buscando...'; // Mensagem do loader
-        loader.style.display = 'flex'; // Mostra o loader
         mainContainer.classList.add('hidden'); // Esconde a tela de busca
         resultsContainer.style.display = 'none'; // Esconde resultados antigos
 
