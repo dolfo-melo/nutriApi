@@ -8,7 +8,9 @@
 
 body {
     font-family: 'Merriweather', serif;
-    background-color: #f4efd6; /* Cor de fundo da página */
+    background-image: url("assets/background.png"); /* Cor de fundo da página */
+    background-size: cover;
+    background-attachment: fixed;
     color: #594234; /* Cor do texto padrão */
     overflow-x: hidden;
 }
@@ -129,7 +131,7 @@ body {
 .section-recipe {
     width: 100%;
     min-height: 90dvh;
-    background-color: #f4efd6; /* Fundo da seção */
+    background-color: #C0D39C; /* Fundo da seção */
     display: none;
     padding: 40px 0;
     position: relative;
