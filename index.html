@@ -35,7 +35,7 @@
 
             <!-- Div da Logo -->
             <div class="image-container">
-                <img src="assets/src/Logo.png" alt="logo">
+                <img src="./assets/Logo.png" alt="logo">
             </div>
         </section>
 
@@ -46,14 +46,76 @@
 
         <!-- Section Receitas -->
         <section class="section-recipe">
-            <h1>Receitas</h1>
+            <h1>Lista de Receitas</h1>
+
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="sort-by">Ordenar por:</label>
+                    <select id="sort-by" name="sort-by">
+                        <option value="popularity">Popularidade</option>
+                        <option value="time">Tempo de Preparo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="diet-type">Categoria:</label>
+                    <select id="diet-type" name="diet-type">
+                        <option value="all">Todas</option>
+                        <option value="main course">Main course</option>
+                        <option value="side-dish">Side dish</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="salad">Salad</option>
+                        <option value="bread">Bread</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="soup">Soup</option>
+                        <option value="beverage">Beverage</option>
+                        <option value="sauce">Sauce</option>
+                        <option value="marinade">Marinade</option>
+                        <option value="fingerfood">Fingerfood</option>
+                        <option value="snack">Snack</option>
+                        <option value="drink">Drink</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="region-type">Região</label>
+                    <select id="region-type" name="region-type">
+                        <option value="all">Todas</option>
+                        <option value="african">African</option>
+                        <option value="asian">Asian</option>
+                        <option value="american">American</option>
+                        <option value="british">British</option>
+                        <option value="cajun">Cajun</option>
+                        <option value="caribbean">Caribbean</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="eastern">Eastern</option>
+                        <option value="european">European</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="greek">Greek</option>
+                        <option value="indian">Indian</option>
+                        <option value="irish">Irish</option>
+                        <option value="italian">Italian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="jewish">Jewish</option>
+                        <option value="korean">Korean</option>
+                        <option value="latin-american">Latin American</option>
+                        <option value="mediterranean">Mediterranean</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="middle-eastern">Middle Eastern</option> 
+                        <option value="nordic">Nordic</option>
+                        <option value="southern">Southern</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="thai">Thai</option>
+                        <option value="vietnamese">Vietnamese</option>
+                    </select>
+                </div>
+            </div>
 
             <!-- Receitas -->
             <div class="general-recipes" id="recipes-grid">
             </div>
         </section>
-
-
+        
         <!-- Modal das receitas -->
         <div class="modal-overlay" id="modal-overlay" style="display: none;">
             <div class="modal-content">
