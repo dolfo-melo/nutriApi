@@ -43,3 +43,36 @@ async function conectarApi() {
     })
 
 }
+// Inicializa o DataTable quando o documento estiver pronto
+$(document).ready(function () {
+  $('#tabela-receitas').DataTable({
+    language: {
+      url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
+    }
+  });
+});
+
+function mostrarReceitas(receitas) {
+  const corpo = document.getElementById('receitas-corpo');
+  corpo.innerHTML = ''; // limpa antes de inserir
+
+  receitas.forEach(r => {
+    corpo.innerHTML += `
+      <tr>
+        <td><img src="${r.imagem}" width="80"></td>
+        <td>${r.nome}</td>
+        <td>${r.ingredientes.join(', ')}</td>
+        <td>${r.instrucoes}</td>
+      </tr>
+    `;
+  });
+
+  // Reinicializa o DataTable se já existir
+  if ($.fn.DataTable.isDataTable('#tabela-receitas')) {
+    $('#tabela-receitas').DataTable().destroy();
+  }
+
+  $('#tabela-receitas').DataTable({
+    language: { url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json' }
+  });
+}

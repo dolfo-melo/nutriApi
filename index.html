@@ -1,28 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link do TailWind CSS (Front End) -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" type="module"></script>
-    <link rel="icon" href="">
-    <title>Nutri Api</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="assets/src/icons/itensIcon.ICO">
+    <link rel="stylesheet" href="style.css">
+    <title>Foody - Gerador de Receitas</title>
+</head>
+<!--Estou linkando o Datatables para o filtro-->
+<!-- jQuery (necessário para DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- CSS e JS do DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- Seu CSS -->
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <main class="w-dwv h-dvh">
-        <h1 class=" w-full h-xs text-center text-lg">NutriApi</h1>
-        <div class="w-full h-full flex justify-around align-center bg-green-300" id="mainContainer">
-            <div class="w-xs h-xl p-5 bg-red" id="mainLogo">
-                <img class="" src="" alt="logo">
+    <main>
+        <section class="main-section">
+            
+            <!-- Menu Principal -->
+            <div class="search-container">
+                <p id="nome">Foody - Gerador de Receitas</p>
+                <h1>Não sabe o que cozinhar?</h1>
+                <p>Digite os ingredientes que você tem em casa (separados por vírgula) e descubra receitas incríveis.</p>
+                
+                <div class="input-group">
+                    <input type="text" id="ingredient-input" placeholder="ex: frango, batata, alho">
+                    <button id="search-btn" onclick="conectarApi()">Buscar</button>
+                </div>
             </div>
-            <div class="w-xs h-xl p-5 bg-green-700" id="container">
-                <label for="pesquisar">Fazer Larica</label>
-                <input type="text" id="pesquisar">
-                <button class="" type="submit" id="btnPesquisar" onclick="conectarApi()">Pesquisar</button>
+    
+            <div class="image-container">
+                <img src="assets/src/prato.png" alt="Prato de comida saudável">
             </div>
-        </div>
+        </section>
+
+        <!-- Secção de Receitas -->
+        
+        <section class="section-recipe">
+            
+            <!-- Modal das Receitas -->
+            <div class="step-step" id="step-step">
+                <img src="" alt="">
+            </div>
+            <h1>Receitas</h1>
+
+            <!-- Tabela DataTables -->
+            <table id="tabela-receitas" class="display">
+              <thead>
+                <tr>
+                  <th>Imagem</th>
+                  <th>Nome da Receita</th>
+                  <th>Ingredientes</th>
+                  <th>Instruções</th>
+                </tr>
+              </thead>
+              <tbody id="receitas-corpo">
+                <!-- As receitas serão inseridas aqui pelo JavaScript -->
+              </tbody>
+            </table>
+
+            
+
+            <!-- Grid de Receitas -->
+            <div class="recipes-grid">
+                
+                <!-- Linha Receitas 1 -->
+                <div class="recipe-line" id="recipe-line">
+
+                    <!-- Receita Individual -->
+                    <div class="recipe" id="receita1">
+                        <img src="" alt="receita-um" id="receita-um-image">
+                        <h2 class="recipe-title"></h2>
+                        <h2 class="recipe-step"></h2>
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-dois" id="receita2">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-tres" id="receita3">
+                         <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-quatro" id="receita4">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-cinco" id="receita5">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+                </div>
+
+                <!-- Linha Receitas 2 -->
+                <div class="recipe-line">
+                    <div class="recipe">
+                        <img src="" alt="receita-seis" id="receita6">
+                        <h4>Receita</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-sete" id="receita7">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-oito" id="receita8">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-nove" id="receita9">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+    
+    
+                    <div class="recipe">
+                        <img src="" alt="receita-dez" id="receita10">
+                        <h2>Receita</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, provident.</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+    <footer>
+            <p>Desenvolvido por Albérico, Kaylane, Matheus, Rodolfo e Ryan 2025</p>
+    </footer>
 </body>
-<!-- Link do Script principal (Back-End) -->
 <script src="assets/scripts/main.js" defer></script>
 </html>

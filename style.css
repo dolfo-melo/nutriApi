@@ -1,0 +1,265 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #fffdf5;
+    color: #000000;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* Section Menu */
+.main-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+    gap: 48px;
+}
+
+/* Coluna da Esquerda (Busca) */
+.search-container {
+    flex: 1; /* Ocupa metade do espaço */
+    max-width: 50%;
+    animation: slideInFromLeft 1s ease-out; /* Animação de entrada */
+}
+
+.search-container h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px; 
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px; 
+}
+
+.search-container p {
+    font-size: 18px; 
+    color: #555;
+    margin-bottom: 32px; 
+}
+
+#nome {
+    font-size: 20px;
+}
+
+/* Input e Botão */
+.input-group {
+    display: flex;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#ingredient-input {
+    flex-grow: 1; /* Ocupa o máximo de espaço possível */
+    border: none;
+    padding: 15px; 
+    font-size: 16px; 
+    font-family: 'Lato', sans-serif;
+}
+
+#ingredient-input:focus {
+    outline: 2px solid #8faa67; 
+}
+
+#search-btn {
+    border: none;
+    background-color: #80a942; 
+    color: white;
+    padding: 0 32px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#search-btn:hover {
+    background-color: #586e37;
+}
+
+/* Coluna da direita (Imagem) */
+.image-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: slideInFromRight 1s ease-out; /* Animação de entrada */
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 800px; /* Tamanho máximo para a imagem */
+    height: auto;
+}
+
+/* Section - Receitas */
+.section-recipe{
+    width: 100%;
+    height: 100dvh;
+    background-color: #80A942;
+    display: block;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section-recipe h1{
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 52px;
+    padding: 60px;
+}
+
+.recipes-grid{
+    margin-top: 50px;
+}
+
+.recipe-line{
+    width: 100%;
+    height: 30dvh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.recipe{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipe img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+/* Footer */
+footer{
+    width:100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+/* Animações */
+@keyframes slideInFromLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+/*Adaptando o Datatables */
+
+/* Container da tabela */
+#tabela-receitas {
+  width: 90%;
+  margin: 40px auto;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Lato', sans-serif;
+}
+
+/* Cabeçalho da tabela */
+#tabela-receitas thead {
+  background-color: #80A942; /* verde do seu tema */
+  color: white;
+}
+
+#tabela-receitas th {
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Linhas do corpo */
+#tabela-receitas td {
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Efeito hover nas linhas */
+#tabela-receitas tbody tr:hover {
+  background-color: #f4f9ec;
+}
+
+/* Imagens dentro da tabela */
+#tabela-receitas td img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+}
+
+/* Barra de pesquisa (input) */
+.dataTables_filter input {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-left: 8px;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Paginação */
+.dataTables_wrapper .dataTables_paginate {
+  margin-top: 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 9px;
+  margin: 0 2px;
+  cursor: pointer;
+  color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: #e8f5e1;
+  border-color: #80A942;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background-color: #80A942;
+  border: 1px solid #80A942;
+  color: white !important;
+}
+
+/* Informações (ex: "Mostrando 1 de 10") */
+.dataTables_info {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  #tabela-receitas th, #tabela-receitas td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  #tabela-receitas td img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
