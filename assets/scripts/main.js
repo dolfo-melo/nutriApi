@@ -40,7 +40,7 @@ async function conectarApi() {
     // Mapeando o div que contém os resultados
     const resultsGrid = document.querySelector(".general-recipes"); 
     
-    // Elementos de Detalhes
+    // Elementos para o Modal
     const recipeDetailsContainer = document.getElementById("recipe-details-container");
     const backBtn = document.getElementById("back-btn");
 
@@ -53,10 +53,13 @@ async function conectarApi() {
 
     // Evento de clique do botão "Sair" na tela de detalhes
     if (backBtn && recipeDetailsContainer) {
+        
         backBtn.addEventListener("click", () => {
+            
             // Volta para a tela de busca e esconde os detalhes
             recipeDetailsContainer.classList.add("hidden");
             mainContainer.classList.remove("hidden"); 
+            
             // Mostra os resultados novamente
             resultsContainer.classList.remove("hidden");
         });
@@ -64,12 +67,17 @@ async function conectarApi() {
 
     // Evento de clique em uma receita
     if (resultsGrid) {
+        
         resultsGrid.addEventListener("click", (event) => {
+            
             // Verifica se o clique foi em um card de receita
             const recipeCard = event.target.closest(".recipe-card");
+            
             // Se for, pega o ID da receita e mostra os detalhes
             if (recipeCard) {
+                
                 const recipeId = recipeCard.dataset.recipeId;
+                
                 // Chama a função que mostra os detalhes da receita
                 showRecipeDetails(recipeId);
             }
