@@ -1,17 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: 0;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    background-image: url(assets/src/background.png);
+    font-family: 'Merriweather', serif;
+    background-image: url("assets/src/background.png"); /* Cor de fundo da página */
     background-size: cover;
     background-attachment: fixed;
-    color: #000000;
-    overflow-x: hidden; /* Evita scroll horizontal */
+    color: #594234; /* Cor do texto padrão */
+    overflow-x: hidden;
 }
 
 /* Section Menu */
@@ -28,63 +29,76 @@ body {
 
 /* Coluna da Esquerda (Busca) */
 .search-container {
-    flex: 1; /* Ocupa metade do espaço */
-    max-width: 50%;
-    animation: slideInFromLeft 1s ease-out; /* Animação de entrada */
+    flex: 1;
+    animation: slideInFromLeft 1s ease-out;
 }
 
+/* Título */
 .search-container h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 56px; 
+    font-size: 52px;
     font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 16px; 
-    text-shadow: 4px 4px 4px #586e37;
+    margin-bottom: 16px;
+    color: #594234; /* Cor do título */
 }
 
-.search-container p{
-    font-size: 18px; 
-    color: #555;
-    margin-bottom: 32px; 
+/* Descrição */
+.search-container p {
+    font-size: 18px;
+    color: #594234; /* Cor da descrição */
+    margin-bottom: 32px;
 }
 
+/* Nome do site */
 #nome {
-    font-size: 20px;
+    font-family: 'Lobster', cursive;
+    font-size: 28px;
+    color: #c81c22; /* Cor do título */
+    border-bottom: 3px dotted #c81c22; /* Cor do sublinhado */
+    padding-bottom: 5px;
+    text-shadow: none;
 }
 
 /* Input e Botão */
 .input-group {
     display: flex;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    overflow: hidden;
+    box-shadow: 4px 4px 0px #594234; /* Sombra ao redor do input e botão */
+    border: 2px solid #594234; /* Borda ao redor do input e botão */
+    border-radius: 0;
+    overflow: hidden; /* Usado para garantir que o conteúdo não ultrapasse os limites */
 }
 
+/* Input de ingredientes */
 #ingredient-input {
-    flex-grow: 1; /* Ocupa o máximo de espaço possível */
+    flex-grow: 1;
     border: none;
-    padding: 15px; 
-    font-size: 16px; 
-    font-family: 'Lato', sans-serif;
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Merriweather', serif;
+    background-color: #fff; /* Fundo do input */
+    color: #594234; /* Cor do texto do input */
 }
 
+/* Remover outline ao focar no input */
 #ingredient-input:focus {
-    outline: 2px solid #8faa67; 
+    outline: none;
 }
 
+/* Botão de busca */
 #search-btn {
     border: none;
-    background-color: #80a942; 
-    color: white;
+    border-left: 2px solid #594234; /* Separador entre input e botão */
+    background-color: #c81c22; /* Cor do botão */ 
+    color: #F2ECCE; /* Cor do texto do botão */
     padding: 0 32px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 #search-btn:hover {
-    background-color: #586e37;
+    background-color: #a9151a; /* Cor do botão ao passar o mouse */
 }
 
 /* Coluna da direita (Imagem) */
@@ -94,138 +108,301 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: slideInFromRight 1s ease-out; /* Animação de entrada */
+    animation: slideInFromRight 1s ease-out;
 }
 
+/* Imagem */
 .image-container img {
     width: 100%;
-    max-width: 800px; /* Tamanho máximo para a imagem */
+    max-width: 450px;
     height: auto;
+    border: 15px solid #fff; /* Borda branca ao redor da imagem */
+    box-shadow: 6px 6px 0px #594234; /* Sombra da imagem */
+    transform: rotate(2deg); /* Efeito de rotação */
+    transition: transform 0.3s ease; /* Transição para o efeito de hover */
 }
 
-/* Section - Receitas */
-.section-recipe{
+/* Efeito de rotação na imagem */
+.image-container img:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+/* Seção 2 - Receitas */
+.section-recipe {
     width: 100%;
-    height: 90dvh;
-    background-color: rgba(128, 169, 66,0.5);
+    min-height: 90dvh;
+    background-color: #C0D39C; /* Fundo da seção */
     display: none;
-    justify-content: space-around;
-    align-items: center;
+    padding: 40px 0;
+    position: relative;
+    border-top: 2px dashed #c81c22; /* Borda superior da seção */
 }
 
-.section-recipe h1{
+.section-recipe h1 {
     font-family: 'Playfair Display', serif;
     text-align: center;
     font-size: 52px;
-    padding: 60px;
+    margin-bottom: 10px;
+    color: #594234; /* Cor do título (Receitas)*/
 }
 
-.general-recipes{
-    width: 100%;
-    height: 30dvh;
+/* Container da grade de receitas */
+.general-recipes {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card de receita individual */
+.recipe-card {
+    background-color: #fff;
+    border: 2px solid #594234;
+    box-shadow: 4px 4px 0px #c81c22;
     text-align: center;
-    color: #fffdf5;
-    margin-top: 100px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 220px;
+    max-width: 280px;
 }
 
-.general-recipes img{
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    border: 5px solid #586e37;
+.recipe-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 8px 8px 0px #93b556;
 }
 
-.general-recipes h3{
+.recipe-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0;
+    border: 2px solid #594234;
+}
+
+.recipe-card h3 {
     margin-top: 15px;
-    width: 300px;
-    height: 50px;
-    background-color: #586e37;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.loader{
-    display: none;
-}
-
-.paginacao{
-    width: 100%;
-    height: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    cursor: default;
-}
-
-.paginacao button{
-    width: 60px;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.paginacao img{
-    width: 40px;
-}
-
-#number{
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    color:#fffdf5;
-    font-weight: bold;
-    font-size: 18px;
-    background-color: #555;
-    border-radius: 100%;
-    padding: 3px;
-}
-
-/* Modal das Receitas */
-.recipe-details{
-    width: 90dvw;
-    height: 60dvH;
-    margin-left: 60px;
-    margin-bottom:  80px;
-    display: none;
+    font-family: 'Playfair Display', serif;
+    color: #594234;
+    font-size: 20px;
 }
 
 
 /* Footer */
-footer{
-    width:100%;
+footer {
+    width: 100%;
     height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    color:#586e37;
+    color: #594234;
     gap: 5px;
     padding: 10px;
+    border-top: 2px dashed #c81c22;
+    margin-top: 40px;
 }
 
-footer strong{
-    color: black;
-    text-shadow: 4px 4px 4px #586e37;
+footer strong {
+    color: #594234;
+    text-shadow: none;
     font-family: 'Playfair Display', sans-serif;
 }
 
-/* Animações */
+/* Modal de receitas */
+.modal-content {
+    background: #f4efd6; /* Fundo do modal */
+    padding: 30px;
+    border-radius: 0;
+    border: 2px solid #594234; /* Borda do modal */
+    box-shadow: 7px 7px 0px rgba(89, 66, 52); /* Sombra do modal */
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* NOVO: Estilizando a lista de ingredientes no modal */
+#modal-details-content ul {
+    list-style: none; /* Remove o marcador padrão */
+    padding-left: 10px;
+}
+
+#modal-details-content ul li::before {
+    content: '-';
+    display: inline-block;
+    color: #62802b; /* Cor do marcador personalizado */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+/* Animações (Mantidas) */
 @keyframes slideInFromLeft {
-    from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideInFromRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.loader {
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fundo do modal*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #594234; /* Cor do X */
+    background: #F2ECCE; /* Fundo do botão */
+    border: 2px solid #594234; /* Borda do botão */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.modal-close-btn:hover {
+    background: #D9411E; /* Cor de fundo ao passar o mouse */
+    color: #F2ECCE; /* Cor do X ao passar o mouse */
+}
+
+#modal-details-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #c81c22; /* Título das receitas */
+}
+
+#modal-details-content img {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 15px auto;
+    border-radius: 0;
+    border: 2px solid #594234; /* Borda da imagem */
+}
+
+#modal-details-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+#modal-details-content li {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+#modal-details-content .instructions {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+#modal-details-content .instructions p,
+#modal-details-content .instructions li {
+    margin-bottom: 1em;
+}
+
+/* --- Seção de Filtros --- */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: 30px;
+    margin-bottom: 30px; 
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #594234; /* Cor do texto */
+}
+
+.filter-group select {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: 2px solid #333333; /* Borda do select */
+    background-color: #ffffff; /* Fundo do select */
+    color: #333333; /* Cor do texto */
+    border-radius: 0;
+    box-shadow: 3px 3px 0px #333333; /* Sombra do select */
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+
+    /* Remove a aparência padrão */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Seta customizada */
+    background-image: url('assets/src/icons/setaBaixoIcon.ICO');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 40px; /* Espaço para a seta */
+}
+
+.filter-group select:focus {
+    outline: none;
+    box-shadow: 3px 3px 0px #C81C22; /* Sombra ao focar */
 }
 
 
