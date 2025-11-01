@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ===================================
         2. SELEÇÃO DOS ELEMENTOS DO DOM
     =================================== */
+    // URL Antiga-> https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&number=5
+
+    // URL Nova -> https://api.spoonacular.com/recipes/716429/information?apiKey=${apiKey}&includeNutrition=true.
+*/
+
+const baseUrl = "https://www.themealdb.com/api/json/v1/1/filter.php?i=ingrediente1,ingrediente2" // URL Base
+const alimentosPesquisa = document.getElementById("pesquisar")
+
+// Função de conectar API
+async function conectarApi() {
     
     // Elementos da Busca e Container Principal
     const mainContainer = document.querySelector(".search-container")
