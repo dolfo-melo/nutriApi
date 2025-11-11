@@ -1,4 +1,4 @@
-<img src="assets/Logo.png">
+<img src="assets\src\Logo.png">
 
 # Foody Finds - Gerador de Receitas
 
